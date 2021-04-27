@@ -1,0 +1,14 @@
+label.Button.btn.btn-success{
+    margin-right: 2px;
+}
+label.Color{
+    border: 2px solid green;
+    margin-right: 4px;
+    padding:3px
+}
+.red{
+    background-color:red;
+}
+.green{
+    background-color: green;
+}
