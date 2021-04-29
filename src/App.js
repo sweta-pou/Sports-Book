@@ -6,9 +6,9 @@ import Sports from './container/Sports';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navitems from './hoc/Navigations/Navigationitems';
 import SingleVenue_sports from './container/SingleSports';
-
-
-import Booking from './container/Booking';
+import Signup from './container/Signup/Signup';
+import Add from './container/Add/Add';
+import Booking from './container/Booking/Booking';
 
 
 function App() {
@@ -16,9 +16,10 @@ function App() {
     <div >
          <Navitems/>
          <Route path="/api/sports" exact component={Sports}/>
-         <Route path="/api/sports/:id" exact component={SingleVenue_sports}/>
-         <Route path="/api/sports/:id/booking"exact component={Booking}/>
-         <Route path="/api/signup"exact component={Booking}/>
+         <Route path="/api/sports/:id"  component={SingleVenue_sports}/>
+         <Route path="/api/signup"exact component={Signup}/>
+         <Route path="/api/add"exact component={Add}/>
+
 
 
     </div>

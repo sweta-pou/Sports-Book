@@ -1,14 +1,18 @@
 import React,{Component} from 'react';
 import {Container,Row,Col,Image,Button} from 'react-bootstrap';
+import {Route} from 'react-router-dom';
+
 import Mapbox from '../Mapbox/Mapbox';
 import classes from './SingleVenues.module.css';
 import {Link} from 'react-router-dom'
+import Booking from '../../container/Booking/Booking'
 
 class SingleVenues extends Component{
   render(){
     console.log(this.props.lat)
   return(
-    <Container className={classes.Container} key={this.props.id}>
+    <div>
+<Container className={classes.Container} key={this.props.id}>
   <Row>
     <Col className={classes.Col} xs={12} md={5}>
     <Mapbox latitude={this.props.lat} longitude={this.props.long}/>
@@ -26,6 +30,10 @@ class SingleVenues extends Component{
     </Col>
   </Row>
   </Container>
+  <Route path="/api/sports/:id/booking" exact component={Booking}/>
+  
+    </div>
+    
   )}
 }
 export default SingleVenues;

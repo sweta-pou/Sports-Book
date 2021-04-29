@@ -5,6 +5,10 @@ const fileupload = require('express-fileupload');
 const mongoose = require('mongoose');
 const bodyParsor = require('body-parser');
 const cors = require('cors');
+const passport =  require("passport");
+const LocalStrategy = require("passport-local");
+ const  passportLocalMongoose = require("passport-local-mongoose");
+ const user = require('./modules/user');
 
 app.use(cors());
      app.use(bodyParsor.json());
@@ -31,7 +35,7 @@ app.use("/images",express.static(path.join(__dirname+"/images")));
 
 const sportsRoute = require('./routes/sports');
 const bookedRoute = require('./routes/booked');
-
+const Index = require('./routes/index');
 
 
 var images = path.join(__dirname+'/images');
@@ -53,6 +57,7 @@ app.use(express.json()) //(for json)
 
 app.use('/api',sportsRoute);
 app.use('/api',bookedRoute);
+app.use('/api',Index);
 
 
 
@@ -73,7 +78,12 @@ app.use(function (err, req, res, next) {
         status: err.status||400
     })
 })
-
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(user.authenticate()));
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
+passport.use(user.createStrategy());
 app.listen(9090, function (err, done) {
     if (err) {
         console.log('Server listening failed')

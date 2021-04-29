@@ -1,15 +1,13 @@
 import React,{Component} from 'react';
 // import { browserHistory} from 'react-router';
-import {Row,Col,Container} from 'react-bootstrap';
-import Datepicker from '../component/Datepicker/Datepicker';
-import Buttons from '../component/ButtonGroup/Button';
-import {Link} from 'react-router-dom';
-import classes from '../component/BookingForm/Form.module.css';
+import {Row,Col} from 'react-bootstrap';
+import Buttons from '../../component/ButtonGroup/Button';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Button from '@material-ui/core/Button';
+import classes from './Booking.module.css'
 class Booking extends Component{
     constructor(){
       super()
@@ -62,15 +60,6 @@ class Booking extends Component{
               })
             }
           })
-        //    this.setState({
-        //      booking:{  start_time:res2.foundBook.start_time,
-        //        end_time:res2.foundBook.end_time,
-        //        difference:res2.foundBook.difference,
-        //        booked:res2.not_start,
-        //        time_array:res2.time_array,
-        //        not_start:res2.not_start,
-        //        id:res2.foundVenue._id}
-        //    })
         console.log(this.state.booking);
         })
     }
@@ -205,7 +194,7 @@ this.setState(function(state) {
 
         return(
                 <ValidatorForm  ref="form"
-                onSubmit={this.onSubmited}>
+                onSubmit={this.onSubmited} className={classes.container}>
         <Row>
                 <Col style={{paddingTop:'25px',paddingLeft:'30px'}}>
                 <Calendar className={classes.Date} onChange={this.onChange} minDate={new Date()}/>
@@ -218,7 +207,7 @@ this.setState(function(state) {
             onClicked={this.onClicken} />
             <div>
                
-                <h2>Enter your details:</h2>
+                <h2 className={classes.h2}>Enter your details:</h2>
             <label>Name</label>
                 <TextValidator type="text" name="booked[name]" placeholder="name" 
                   onChange={this.changeName} value={this.state.form.name}
