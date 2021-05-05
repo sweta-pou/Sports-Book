@@ -28,13 +28,15 @@ class SingleVenue extends Component{
            })
            console.log(this.state.venue.lat)
         })
+        
     }
     render()
-    {
+    { console.log(this.state.image);
 
         return(
             <div>
-           <SingleVenue_info description={this.state.venue.description} lat={this.state.venue.lat} long={this.state.venue.long} id={this.state.venue._id} />
+           <SingleVenue_info description={this.state.venue.description} lat={this.state.venue.lat} 
+            image={this.state.venue.image} long={this.state.venue.long} id={this.state.venue._id} />
             </div>
 
         )

@@ -8,12 +8,12 @@ div.Card{
 
 }
 .Title{
-    font-size: 2vw;
+    font-size: 1.8vw;
     font-weight:800;
 }
 button.Button{
     /* width: 5vw; */
-    font-size: 1.2vw;
+    font-size: 0.7vw;
 }
 .Location{
     font-size: 0.8vw;

@@ -9,7 +9,7 @@ const passport =  require("passport");
 const LocalStrategy = require("passport-local");
  const  passportLocalMongoose = require("passport-local-mongoose");
  const user = require('./modules/user');
-
+const flash = require('connect-flash');
 app.use(cors());
      app.use(bodyParsor.json());
      //===mongoDB setup===//
@@ -54,15 +54,45 @@ app.use(express.urlencoded({
 app.use(express.json()) //(for json)
 
 //load routing level middleware(mount)
+app.use(flash());
+app.use(require("express-session")(
+{
+    secret:"this is yelpcamp",
+    resave:false,
+    saveUninitialized:false
+}
+));
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(
+    ({ 
+        usernameField: 'email',    
+        passwordField: 'password'
+      }),user.authenticate()));
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
+
+app.use(function(req,res,next)
+{
+    console.log(req.user);
+    if(req.user)
+    {
+         res.locals.currentUser = req.user;}
+    else
+    {
+        res.locals.currentUser = null;
+    }
+    
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    console.log(res.locals.currentUser);
+    next();
+}
+)
 app.use('/api',sportsRoute);
 app.use('/api',bookedRoute);
 app.use('/api',Index);
-
-
-
-
-
 app.use(function (req, res, next) { //for undefined request
     next({
         msg: 'NOT FOUND 404',
@@ -78,12 +108,9 @@ app.use(function (err, req, res, next) {
         status: err.status||400
     })
 })
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(user.authenticate()));
-passport.serializeUser(user.serializeUser());
-passport.deserializeUser(user.deserializeUser());
-passport.use(user.createStrategy());
+
+
+
 app.listen(9090, function (err, done) {
     if (err) {
         console.log('Server listening failed')

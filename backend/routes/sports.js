@@ -88,8 +88,12 @@ sports.findById(req.params.id,function(err,foundVenue){
     Booking.findById(foundVenue.booking,function(err,foundBook)
     {
         
-        var start =convert.startSlice(foundBook.start_time,foundBook.start_p);
-        var end = convert.endslice(foundBook.end_time,foundBook.end_p);
+        var start =convert.startSlice(foundBook.start_time);
+        var end = convert.endslice(foundBook.end_time);
+        console.log(start);
+        console.log(end);
+
+        console.log(parseInt(start));
         var time_array = convert.calculate_time_slot(parseInt(start),parseInt(end),foundBook.difference);
         console.log(time_array);
         Booked.find({VenueId:foundVenue.id,date:match_date},function(err,foundBooked)

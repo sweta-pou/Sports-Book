@@ -2,11 +2,11 @@
     margin-top:50px ;
 }
 .container{
-    margin: 20% auto;
+    margin: 400px auto;
     width: 80%;
     text-align: center;
     box-shadow: 0 2px 3px #ccc;
     border:  1px solid #eee;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 30px;
 }

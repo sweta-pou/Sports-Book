@@ -1,0 +1,26 @@
+.Container{
+    margin-top: 20vh;
+    width: 550px;
+    border: 2px solid black;
+    padding: 10px;
+   
+}
+.text{
+    text-align: center;
+}
+.input{
+    margin-top: 20px;
+}
+.field{
+    width: 400px;
+
+}
+/* .Button{
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 50px;
+} */
+.label{
+    font-size: large;
+    padding-right: 10px;
+}

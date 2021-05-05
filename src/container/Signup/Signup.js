@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button'
 import  classes from './Signup.module.css';
 class Register extends Component{
     constructor(){
@@ -46,14 +45,21 @@ class Register extends Component{
             password:''
         })
     }
+    
  render(){
      return(
              <div className={classes.joinOuterContainer}>
         <div className={classes.joinInnerContainer}>
             <h1 className={classes.heading}>Let's Signup</h1>
              <form onSubmit={this.submitHandler}>
-                 <TextField id="standard-basic" label="Email" required className={classes.joinInput} onChange={(e)=>this.changeEmail(e)} value={this.state.email} /><br/>
-             <TextField id="standard-basic"  type="password" required label="Password" className={classes.joinInput} onChange={(e)=>this.changePassword(e)} value={this.state.password} /><br/>
+                 <TextField id="standard-basic" label="Email" required className={classes.joinInput}
+                  InputLabelProps={{
+                    className: classes.floatingLabelFocusStyle
+                }} onChange={(e)=>this.changeEmail(e)} value={this.state.email} /><br/>
+             <TextField id="standard-basic"  type="password" required label="Password" className={classes.joinInput}
+             InputLabelProps={{
+                className: classes.floatingLabelFocusStyle
+            }} onChange={(e)=>this.changePassword(e)} value={this.state.password} /><br/>
              <button  className={classes.button}>Signup</button>
             
              </form>

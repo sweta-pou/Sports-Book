@@ -1,33 +1,24 @@
 const booked = require("../modules/booked");
 var convert ={}
 
-convert.startSlice=function (start,start_p){
+convert.startSlice=function (start){
                    
                     var sliced1 = start.split(":");
                     
                     var part2 = parseInt(sliced1[1]);
-                if(start_p==="PM")
-                {  
-                    var part1= parseInt(sliced1[0])+12;
-                }
-                else
-                {
-                   var part1 = parseInt(sliced1[0]); 
-                }
-                var start_t = (part1*60)+part2;   
+                    var part1= parseInt(sliced1[0]);
+                console.log("hereee",part1);
+                var start_t = (part1*60)+part2; 
+                console.log(start_t);  
                 return(start_t);               
          }
-convert.endslice = function(end,end_p){
+convert.endslice = function(end){
        
                 var sliced2 = end.split(":");
                 var part22= parseInt(sliced2[1]);
-                if(end_p==="PM")
-                {
-                    var part11 = parseInt(sliced2[0])+12;
-                }
-                else{
-                    var part22= parseInt(sliced2[0]);
-                }
+                var part11= parseInt(sliced2[0]);
+                console.log(part11);
+                console.log("haha",part11);
                 var end_t = (part11*60)+part22;
                 return(end_t);
  

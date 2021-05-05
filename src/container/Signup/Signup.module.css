@@ -24,7 +24,9 @@
     padding-bottom: 10px;
     border-bottom: 2px solid white;
   }
-  
+  .floatingLabelFocusStyle{
+    color: cornsilk !important;
+  }
   .button {
       color: #fff !important;
       text-transform: uppercase;
@@ -49,6 +51,7 @@
   
   
   }
+  
   
   button:focus {
     outline: 0;
