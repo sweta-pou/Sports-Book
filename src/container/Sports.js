@@ -10,17 +10,28 @@ class Venue extends Component{
                 name:'' ,
                 image:''
 
-          }]
+          }],
+          search:''
         }
+        this.setSearch = this.setSearch.bind(this)
+
     }
     componentDidMount(){
-        fetch('http://localhost:9090/api/sports').then(
+        console.log("here");
+        console.log(this.state.search);
+        fetch(`http://localhost:9090/api/sports`).then(
             res=>res.json()
         ).then(res2=>{
             this.setState({
                 venue:res2
             })
         })
+        
+    } 
+    setSearch(event){
+        event.preventDefault();
+        this.setState({search:event.target.value});
+        console.log(this.state.search);
     }
     render()
     {
@@ -39,7 +50,7 @@ class Venue extends Component{
     })
         return(
             <div>
-            <Search/>
+            <Search setSearch={this.setSearch}/>
                 {card}
   
             </div>

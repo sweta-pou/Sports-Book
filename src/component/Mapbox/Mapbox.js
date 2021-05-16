@@ -21,22 +21,7 @@ class Map extends Component{
     return {
       lat:nextProps.latitude,lng:nextProps.longitude
     };
-  }
-//   componentDidUpdate(prevProps, prevState){
-//     console.log("upadate component");
-//     console.log(prevState);
-//     console.log(prevProps);
-
-// const map = new mapboxgl.Map(
-//   {
-//     container:this.mapContainer,
-//     style:'mapbox://styles/mapbox/streets-v11',
-//     center: [this.state.lng,this.state.lat],
-//     zoom:this.state.zoom
-//   }
-// )
-// var marker = new mapboxgl.Marker().setLngLat([this.state.lng,this.state.lat]).addTo(map);
-// }
+  }S
 componentDidMount(){
   console.log("mounted");
   const map = new mapboxgl.Map(

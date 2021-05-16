@@ -6,6 +6,13 @@ const router=require('express').Router();
   const  NodegeoCoder = require("node-geocoder");
 const Booking = require('../modules/booking');
 const passport = require("passport");
+const crypto = require('crypto');
+const token = require('../modules/token');
+const mailgun = require("mailgun-js");
+
+//===mailgun=====//
+const DOMAIN = process.env.DOMAIN;
+const mg = mailgun({apiKey: process.env.MAILGUN_API, domain: DOMAIN});
 
   var options = {
     provider: 'opencage',
@@ -24,6 +31,7 @@ user.findOne({email:email},function(err,found)
 {
     if(found){
         console.log("This email already exists");
+        res.send("email already exists!");
     }
     else
     { const newUser =new user({email:email});
@@ -31,14 +39,76 @@ user.findOne({email:email},function(err,found)
             if(err){console.log(err);}
             else
             {
-                console.log(register);
-                res.send("done");
+                var tokens = new token({ user_id: register._id, token: crypto.randomBytes(16).toString('hex') });
+                tokens.save(function(err,token)
+                       {
+                           if(err){console.log(err);}
+                           else
+                           {
+                               var token = token.token;
+                            const data = {
+                                from: 'Sports-Book@gmail.com',
+                                to: req.body.email,
+                                subject: 'Email Verification',
+                                html:`Hello,<br> Please Click on the link to verify your email.<br> <a href="http:/localhost:9090/api/verification?verify=${token}">click here</a>`
+                            };
+                            mg.messages().send(data, function (error, body) {
+                                console.log(body);
+                            });
+                            res.send("done");
+                           }
+                       }
+                       );
+
             }
         })
     }
 }
 )
 });
+router.get("/verification",function(req,res)
+{ console.log('verification');
+   console.log(req.query.verify);
+    token.findOne({token:req.query.verify},function(err,Token)
+    {
+        if(err)
+        {
+            console.log(err);
+        }
+        else
+        {
+            if(!Token)
+            {
+               res.send("token not found.");
+
+            }
+            else
+            {
+                user.findOne({_id:Token.user_id},function(err,FoundUSer)
+                {
+                    if(err){console.log(err);}
+                    else
+                    {
+                        FoundUSer.isverified = 'true';
+                        FoundUSer.save(err)
+                        {
+                            if(err){console.log(err);}
+                            else
+                            {
+                                console.log("the account has been verified");
+                                res.send("account verrified.Please login .");
+                            }
+                        }
+                    }
+                }
+                )
+            }
+        }
+    }
+    )
+}
+)
+
 router.post("/add",function(req,res)
 {
     console.log("reached");
@@ -71,7 +141,10 @@ router.post("/add",function(req,res)
                     }
                     )
                    }
-            })})
+            }
+            )
+        }
+        )
 }
 );
 router.post('/login',passport.authenticate('local'
@@ -81,13 +154,9 @@ router.post('/login',passport.authenticate('local'
     {
         if(err){console.log(err);}
         else
-        {
-
-              req.flash("success","Sucessfully loggedin");  
+        { 
               console.log("logged!");
               res.send(req.user);
-
-            //   res.redirect("/campgrounds");
             }
         
     }

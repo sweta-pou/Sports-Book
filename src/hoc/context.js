@@ -1,25 +1,29 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 const UserContext = React.createContext({})
 
- export class UserProvider extends Component {
+export class UserProvider extends Component {
   // Context state
   state = {
     user: {},
-    loggedIn:'false'
+    loggedIn: 'false'
   }
 
   // Method to update state
   setUser = (user) => {
-    this.setState((prevState) => ({ user ,loggedIn:'true'}))
+    console.log(user);
+    if (user.isverified) {
+      this.setState( { user:user, loggedIn: 'true' })
+
+    }
   }
   setLog = () => {
-    this.setState((prevState) => ({ loggedIn:'false'}))
+    this.setState({ user:'', loggedIn: 'false' })
   }
 
   render() {
     const { children } = this.props
-    const { user,loggedIn } = this.state
-    const { setUser,setLog } = this
+    const { user, loggedIn } = this.state
+    const { setUser, setLog } = this
 
     return (
       <UserContext.Provider

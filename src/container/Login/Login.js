@@ -1,8 +1,11 @@
 import React,{Component, useContext} from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import  classes from './Login.module.css';
 import UserContext from '../../hoc/context';
+toast.configure()
 class Register extends Component{
     static contextType=UserContext;
     constructor(){
@@ -29,6 +32,9 @@ class Register extends Component{
             password:event.target.value
         })
     }
+    notify(){
+        toast.success("Successfully logged In !",{position:toast.POSITION.TOP});
+    }
     submitHandler(event){
         event.preventDefault()
             const registered ={
@@ -44,7 +50,7 @@ class Register extends Component{
             const{user,setUser}=this.context;
              setUser(response.data);
              this.props.history.push('/api/sports/');
-
+              this.notify();
                }
             
         )

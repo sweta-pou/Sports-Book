@@ -2,14 +2,23 @@ import React,{useContext} from 'react';
 import {Navbar,Nav,NavDropdown} from 'react-bootstrap';
 import {  Link, useHistory } from 'react-router-dom';
 import UserContext  from '../context';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure()
 function Navitems (){
   const {user,setUser,setLog,loggedIn} = useContext(UserContext);
   console.log(loggedIn);
   const history = useHistory();
+  const notify=()=>{
+    toast.success("Successfully logged Out !",{position:toast.POSITION.TOP});
+
+  }
   function logout(){
-   setUser(null);
    setLog();
+   
+   notify();
    history.push('/api/login');
 
   }

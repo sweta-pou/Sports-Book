@@ -9,9 +9,11 @@ const fs = require('fs');
 //===sports get request===//
 router.get("/sports",function(req,res)
 {
+    console.log(req.query.search);
  
     if(req.query.search)
         {var noMatch;
+            console.log(req.query.search);
                 const regex = new RegExp(escapeRegex(req.query.search), 'gi');
                 sports.find({ "name": regex }, function(err, foundSports) {
                     if(err) {
@@ -22,8 +24,6 @@ router.get("/sports",function(req,res)
                         {
                              noMatch ="doesnot match";
                         }
-                        //===render sports page===//
-                //    res.render('venue/sports.ejs',{venue:foundSports,noMatch:noMatch});
                 res.send(foundSports);
                        
                     }
@@ -32,8 +32,6 @@ router.get("/sports",function(req,res)
             else{
                 sports.find({},function(err,foundSports)
                 {
-                    //===render===//
-                //  res.render('venue/sports.ejs',{venue:foundSports,noMatch:noMatch});
                 res.send(foundSports);
 
                 })
